@@ -47,6 +47,11 @@ class Level:
 
 		return (360,140)
 
+	def get_end_coord(self):
+		for r in range(self.grid.h_cells):
+			for c in range(self.grid.w_cells):
+				if self.grid.grid[r][c] == '3':
+					return (c,r)
 
 
 

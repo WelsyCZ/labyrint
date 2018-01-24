@@ -60,3 +60,6 @@ class Player(pygame.sprite.Sprite):
 	def move(self):
 		self.rect.x += self.vel.x
 		self.rect.y += self.vel.y
+
+	def coord(self):
+		return (self.rect.x // 20, self.rect.y // 20)

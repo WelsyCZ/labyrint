@@ -38,6 +38,7 @@ def main(jmeno_urovne):
 	#INIT LEVEL AND PLAYER
 	level = Level(SCREEN_RESOLUTION, os.path.join("levels", jmeno_urovne))
 	start = level.get_start()
+	end_coord = level.get_end_coord()
 
 	player = Player(start)
 	players = pygame.sprite.Group()
@@ -45,6 +46,7 @@ def main(jmeno_urovne):
 
 	#GAME LOOP
 	game_end = False
+	win = False
 	while not game_end:
 		#EVENTS
 		for event in pygame.event.get():
@@ -94,6 +96,10 @@ def main(jmeno_urovne):
 			player.move()
 		player.stay_on_screen()
 		del(temp)
+
+		if player.coord() == end_coord and not win:
+			level = Level(SCREEN_RESOLUTION, os.path.join("levels", "youwin"))
+			win = True
 
 		# DRAW
 		canvas.fill(DARK_BLUE)
