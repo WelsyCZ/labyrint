@@ -8,6 +8,7 @@
 import sys
 from sprite import Wall
 from sprite import Floor
+from sprite import End
 import pygame
 
 class Level:
@@ -20,6 +21,7 @@ class Level:
 		#self.grid.grid[5][5] = True
 		self.walls = self.get_walls()
 		self.floors = self.get_floors()
+		self.ends = self.get_end()
 
 	def get_walls(self):
 		walls = pygame.sprite.Group()
@@ -33,7 +35,7 @@ class Level:
 	def get_floors(self):
 		floors = pygame.sprite.Group()
 		for cell in self.grid.get_cells():
-			if not self.grid.is_wall(cell):
+			if not self.grid.is_wall(cell) and not self.grid.is_end(cell):
 				pos = [cell[0]*self.grid.cell_size, cell[1]*self.grid.cell_size]
 				floor = Floor(pos)
 				floors.add(floor)
@@ -46,6 +48,15 @@ class Level:
 					return (c*self.grid.h_cells, r*self.grid.w_cells)
 
 		return (360,140)
+
+	def get_end(self):
+		ends = pygame.sprite.Group()
+		for cell in self.grid.get_cells():
+			if self.grid.is_end(cell):
+				pos = [cell[0]*self.grid.cell_size, cell[1]*self.grid.cell_size]
+				end = End(pos)
+				ends.add(end)
+		return ends
 
 	def get_end_coord(self):
 		for r in range(self.grid.h_cells):
@@ -88,3 +99,6 @@ class Grid:
 
 	def is_wall(self, pos):
 		return (self.grid[pos[1]][pos[0]] == '1')
+
+	def is_end(self, pos):
+		return (self.grid[pos[1]][pos[0]] == '3')

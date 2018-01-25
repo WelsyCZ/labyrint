@@ -26,3 +26,12 @@ class Floor(pygame.sprite.Sprite):
         #self.image.fill((100, 20, 20))
         self.rect = self.image.get_rect()
         self.rect.topleft = pos
+
+class End(pygame.sprite.Sprite):
+	def __init__(self, pos):
+		pygame.sprite.Sprite.__init__(self)
+		#self.image = pygame.Surface([20, 20])
+		self.image = pygame.image.load(os.path.join('img','end.png'))
+		#self.image.fill((100, 20, 20))
+		self.rect = self.image.get_rect()
+		self.rect.topleft = pos

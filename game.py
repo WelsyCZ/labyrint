@@ -105,6 +105,7 @@ def main(jmeno_urovne):
 		canvas.fill(DARK_BLUE)
 		level.walls.draw(canvas)
 		level.floors.draw(canvas)
+		level.ends.draw(canvas)
 		players.draw(canvas)
 
 		clock.tick(60)
