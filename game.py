@@ -12,6 +12,8 @@ import os
 from level import Level
 from sprite import Wall 
 from player import Player
+from enemy import Enemy
+from vector import Vector
 from copy import deepcopy
 #---------------------------------------------------------------
 SCREEN_WIDTH = 400
@@ -44,6 +46,27 @@ def main(jmeno_urovne):
 	players = pygame.sprite.Group()
 	players.add(player)
 
+	enemy1 = Enemy((40,40))
+	enemy2 = Enemy((140,340))
+	enemies = pygame.sprite.Group()
+	enemies.add(enemy1)
+	enemies.add(enemy2)
+	speed1 = 1
+	speed2 = 1
+	enemy1.patrol_setup( [(Vector(speed1,0), (40,40)),(Vector(0,speed1),(80,40)),
+		(Vector(-speed1,0),(80,80)),(Vector(0,-speed1),(0,80)),(Vector(speed1,0),(0,0)),
+		(Vector(0,speed1),(120,0)),(Vector(speed1,0),(120,100)),(Vector(-speed1,0),(200,100)),
+		(Vector(0,-speed1),(120,100)),(Vector(-speed1,0),(120,0)),(Vector(0,speed1),(0,0)),
+		(Vector(speed1,0),(0,80)),(Vector(0,-speed1),(80,80)),(Vector(-speed1,0),(80,40))
+		])
+	enemy2.patrol_setup([
+		(Vector(speed2,0),(140,340)),(Vector(0,speed2),(260,340)),(Vector(speed2,0),(260,380)),
+		(Vector(0,-speed2),(340,380)),(Vector(speed2,0),(340,280)),(Vector(0,-speed2),(360,280)),
+		(Vector(-speed2,0),(360,240)),(Vector(0,-speed2),(340,240)),(Vector(0, speed2),(340,180)),
+		(Vector(speed2,0),(340,240)),(Vector(0,speed2),(360,240)),(Vector(-speed2,0),(360,280)),
+		(Vector(0,speed2),(340,280)),(Vector(-speed2,0),(340,380)),(Vector(0,-speed2),(260,380)),
+		(Vector(-speed2,0),(260,340))
+		])
 	#GAME LOOP
 	game_end = False
 	win = False
@@ -101,12 +124,15 @@ def main(jmeno_urovne):
 			level = Level(SCREEN_RESOLUTION, os.path.join("levels", "youwin"))
 			win = True
 
+		enemy1.patrol()
+		enemy2.patrol()
 		# DRAW
 		canvas.fill(DARK_BLUE)
 		level.walls.draw(canvas)
 		level.floors.draw(canvas)
 		level.ends.draw(canvas)
 		players.draw(canvas)
+		enemies.draw(canvas)
 
 		clock.tick(60)
 		pygame.display.update()

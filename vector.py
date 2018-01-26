@@ -19,6 +19,13 @@ class Vector:
 		new = Vector(self.x - other.x, self.y - other.y)
 		return new
 
+	def mult(self,num):
+		print("called on", self.x, self.y, "with num", num)
+		x = num * self.x
+		y = num * self.y
+		print("ret",x,y)
+		return Vector(x,y)
+
 	def restrict(self, abs_value):
 		"""
 		Restricts the vector coordinates to stay within

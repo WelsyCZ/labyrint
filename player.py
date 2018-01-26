@@ -20,7 +20,7 @@ class Player(pygame.sprite.Sprite):
 		self.r = 17
 		#self.image.fill((120,120,0))
 		self.rect = self.image.get_rect()
-		self.rect.center = (pos[0] + 10, pos[1] + 10)
+		self.rect.center = (pos[0] + 8.5, pos[1] + 8.5)
 		self.rect.inflate_ip(-2,-2)
 		self.vel = Vector(0,0)
 
